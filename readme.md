@@ -23,3 +23,27 @@ ORDER BY i1.category_id, i1.price DESC;
 ```
 
 #### Задание 2
+
+Получить все года рождений пользователей с указанием сколько мужчин и женщин родилось в этот год.
+```sql
+SELECT YEAR(birthdate)             AS year,
+       SUM(IF('F' = gender, 1, 0)) AS female,
+       SUM(IF('M' = gender, 1, 0)) AS male,
+       SUM(IFNULL(gender, 1))      AS undetermined
+FROM users
+GROUP BY year
+ORDER BY year;
+```
+
+^ выбирающий всех НЕ заблокированных пользователей
+```sql
+SELECT YEAR(birthdate)             AS year,
+       SUM(IF('F' = gender, 1, 0)) AS female,
+       SUM(IF('M' = gender, 1, 0)) AS male,
+       SUM(IFNULL(gender, 1))      AS undetermined
+FROM users
+LEFT JOIN users_banned ub on users.id = ub.user_id
+WHERE ub.user_id IS NULL
+GROUP BY year
+ORDER BY year;
+```
