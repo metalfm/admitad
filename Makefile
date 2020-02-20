@@ -23,17 +23,17 @@ start:
 		--scan-mode accelerated \
 		--sync-mode one-way-replica \
 		--watch-mode-beta no-watch \
-		web/ docker://nginx@ad_nginx_dev/var/www/html/web
+		web/ docker://nginx@ad-nginx-dev/var/www/html/web
 
-	docker exec -u www-data -t ad_php_dev php composer.phar install -o --no-scripts
-	docker exec -u www-data -t ad_php_dev php bin/phpunit install
-	docker exec -u www-data -t ad_php_dev php bin/console cache:clear
+	docker exec -u www-data -t ad-php-dev php composer.phar install -o --no-scripts
+	docker exec -u www-data -t ad-php-dev php bin/phpunit install
+	docker exec -u www-data -t ad-php-dev php bin/console cache:clear
 
-	echo "docker exec -t -u www-data ad_php_dev php composer.phar run-script php-cs && sleep 2 && git add -u" | tee .git/hooks/pre-commit
+	echo "docker exec -t -u www-data ad-php-dev php composer.phar run-script php-cs && sleep 2 && git add -u" | tee .git/hooks/pre-commit
 	chmod +x .git/hooks/pre-commit
 
 	# make sync
-	docker cp ad_php_dev:/var/www/html/var/cache/    ./var/
+	docker cp ad-php-dev:/var/www/html/var/cache/    ./var/
 
 stop:
 	pkill autossh || true
@@ -51,13 +51,13 @@ stop:
 
 sync:
 	rm -rf vendor/*
-	docker cp ad_php_dev:/var/www/html/vendor        ./
-	docker cp ad_php_dev:/var/www/html/var/cache/    ./var/
-	docker cp ad_php_dev:/var/www/html/bin/          ./
-	docker cp ad_php_dev:/var/www/html/composer.json ./composer.json
-	docker cp ad_php_dev:/var/www/html/composer.phar ./composer.phar
-	docker cp ad_php_dev:/var/www/html/composer.lock ./composer.lock
-	docker cp ad_php_dev:/var/www/html/symfony.lock  ./symfony.lock
+	docker cp ad-php-dev:/var/www/html/vendor        ./
+	docker cp ad-php-dev:/var/www/html/var/cache/    ./var/
+	docker cp ad-php-dev:/var/www/html/bin/          ./
+	docker cp ad-php-dev:/var/www/html/composer.json ./composer.json
+	docker cp ad-php-dev:/var/www/html/composer.phar ./composer.phar
+	docker cp ad-php-dev:/var/www/html/composer.lock ./composer.lock
+	docker cp ad-php-dev:/var/www/html/symfony.lock  ./symfony.lock
 
 build:
 	export DOCKER_BUILDKIT=1
@@ -65,3 +65,6 @@ build:
 		--build-arg APP_DEBUG=$$APP_DEBUG \
 		--build-arg APP_DEBUG_ADDRESS=docker.for.mac.host.internal \
 		--build-arg APP_ENV=$$APP_ENV
+
+php-cs:
+	docker-compose -f docker-compose.dev.yml exec -T -u www-data php php composer.phar run-script php-cs

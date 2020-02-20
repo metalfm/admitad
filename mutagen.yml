@@ -2,7 +2,7 @@ sync:
 
     php:
         alpha: "."
-        beta: "docker://www-data@ad_php_dev/var/www/html"
+        beta: "docker://www-data@ad-php-dev/var/www/html"
         mode: "two-way-resolved"
         scanMode: "accelerated"
         ignore:
