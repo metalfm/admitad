@@ -11,6 +11,7 @@ services:
             - ./var/log/:/var/www/html/var/log:delegated
         depends_on:
             - nginx
+            - mysql
         command: php-fpm
         networks:
             ad_network:
@@ -30,6 +31,22 @@ services:
         networks:
             ad_network:
 
+    mysql:
+        image: mysql:8
+        environment:
+            MYSQL_DATABASE: 'db'
+            MYSQL_USER: 'mysql_user'
+            MYSQL_PASSWORD: 'mysql_pass'
+            MYSQL_ROOT_PASSWORD: 'root_pass'
+        ports:
+            - '3306:3306'
+        volumes:
+            - mysql-db:/var/lib/mysql
+        networks:
+            ad_network:
+
+volumes:
+    mysql-db:
 
 networks:
     ad_network:
