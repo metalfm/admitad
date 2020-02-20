@@ -40,7 +40,7 @@ class ShortUriController extends AbstractController
     }
 
     /**
-     * @Route("/", methods={"GET"})
+     * @Route("/", methods={"POST"})
      *
      * @param Shortener       $shortener
      * @param Request         $request

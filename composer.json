@@ -31,6 +31,7 @@
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^6.3",
         "diablomedia/phpunit-pretty-printer": "^4.0",
         "friendsofphp/php-cs-fixer": "^2.16",
         "symfony/debug-pack": "*",
