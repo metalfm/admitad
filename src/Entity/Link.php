@@ -2,27 +2,34 @@
 
 namespace App\Entity;
 
+use App\Validator\Constraints\FutureDateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\LinkRepository")
  */
 class Link
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="bigint", options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned": true})
      * @ORM\GeneratedValue
      */
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=2048)
+     * @Assert\Url
+     * @Assert\NotBlank
+     * @Assert\Length(max=2048)
      */
-    private $url;
+    private $uri;
 
     /**
-     * @ORM\Column(type="date_immutable")
+     * @ORM\Column(type="datetime_immutable")
+     * @Assert\NotBlank
+     * @FutureDateTime
      */
     private $expireAt;
 
@@ -31,16 +38,16 @@ class Link
         return $this->id;
     }
 
-    public function setUrl(string $url): self
+    public function setUri(string $uri): self
     {
-        $this->url = $url;
+        $this->uri = $uri;
 
         return $this;
     }
 
-    public function getUrl(): string
+    public function getUri(): string
     {
-        return $this->url;
+        return $this->uri;
     }
 
     public function setExpireAt(\DateTimeImmutable $expireAt): self

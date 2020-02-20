@@ -32,6 +32,7 @@ services:
             ad_network:
 
     mysql:
+        container_name: "ad-mysql-${DOCKER_BUILD_TAG}"
         image: mysql:8
         environment:
             MYSQL_DATABASE: 'db'
