@@ -1,0 +1,17 @@
+sync:
+
+    php:
+        alpha: "."
+        beta: "docker://www-data@ad_php_dev/var/www/html"
+        mode: "two-way-resolved"
+        scanMode: "accelerated"
+        ignore:
+            vcs: true
+            paths:
+                - "var/"
+                - "vendor/"
+                - "node_modules/"
+                - "bin/.phpunit/"
+                - ".docker/"
+                - ".platform/"
+                - ".idea/"
