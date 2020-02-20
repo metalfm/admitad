@@ -66,5 +66,10 @@ build:
 		--build-arg APP_DEBUG_ADDRESS=docker.for.mac.host.internal \
 		--build-arg APP_ENV=$$APP_ENV
 
+test:
+	docker cp .env ad-php-$$DOCKER_BUILD_TAG:/var/www/html/.env
+	docker-compose -f docker-compose.dev.yml exec -T -u root php chown www-data:www-data .env
+	docker-compose -f docker-compose.dev.yml exec -T -u www-data -e APP_ENV=$$APP_ENV -e APP_DEBUG=$$APP_DEBUG php bin/phpunit --debug
+
 php-cs:
 	docker-compose -f docker-compose.dev.yml exec -T -u www-data php php composer.phar run-script php-cs
