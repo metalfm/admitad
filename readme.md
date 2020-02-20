@@ -47,3 +47,19 @@ WHERE ub.user_id IS NULL
 GROUP BY year
 ORDER BY year;
 ```
+
+
+## Install, build and run
+- `cp .env.dist .env`
+- `brew install havoc-io/mutagen/mutagen`
+- add alias to ~/.bash_profile
+```
+alias dc="docker-compose"
+alias dc-dev='docker-compose  -f `pwd`/docker-compose.dev.yml '
+alias dc-prod='docker-compose -f `pwd`/docker-compose.prod.yml '
+alias dc-exterminatus='docker stop $(docker ps -a -q) > /dev/null 2>&1; docker rm $(docker ps -a -q) > /dev/null 2>&1; docker rmi $(docker images -f "dangling=true" -q) > /dev/null 2>&1; echo 🔥'
+```
+- install [docker](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
+- `make build`
+- `make start`
+- `make stop`
