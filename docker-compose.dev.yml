@@ -1,0 +1,39 @@
+version: '3.3'
+services:
+
+    php:
+        container_name: "ad-php-${DOCKER_BUILD_TAG}"
+        image: "ad-php:${DOCKER_BUILD_TAG}"
+        build:
+            context:    ./
+            dockerfile: ./.docker/php/Dockerfile
+        volumes:
+            - ./var/log/:/var/www/html/var/log:delegated
+#        depends_on:
+#            - nginx
+        command: php-fpm
+        networks:
+            ad_network:
+
+
+#    nginx:
+#        container_name: "in_nginx_${DOCKER_BUILD_TAG}"
+#        image: "intercom-nginx:${DOCKER_BUILD_TAG}"
+#        build:
+#            context:    ./
+#            dockerfile: ./.docker/nginx/Dockerfile
+#        volumes:
+#            - ./.docker/nginx/server-dev.conf:/etc/nginx/conf.d/server.conf:cached
+#        ports:
+#            - '80:8080'
+#        command: sh /var/run/wait-for.sh php:9000 -t 20 -- nginx
+#        networks:
+#            in_network:
+
+
+networks:
+    ad_network:
+        driver: bridge
+        ipam:
+            config:
+                -   subnet: 10.10.0.0/16
