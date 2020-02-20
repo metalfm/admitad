@@ -67,8 +67,7 @@ build:
 		--build-arg APP_ENV=$$APP_ENV
 
 test:
-	docker cp .env ad-php-$$DOCKER_BUILD_TAG:/var/www/html/.env
-	docker-compose -f docker-compose.dev.yml exec -T -u root php chown www-data:www-data .env
+	docker-compose -f docker-compose.dev.yml exec -T php bin/console hautelook:fixtures:load --purge-with-truncate -q
 	docker-compose -f docker-compose.dev.yml exec -T -u www-data -e APP_ENV=$$APP_ENV -e APP_DEBUG=$$APP_DEBUG php bin/phpunit --debug
 
 php-cs:

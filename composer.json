@@ -34,6 +34,8 @@
         "dama/doctrine-test-bundle": "^6.3",
         "diablomedia/phpunit-pretty-printer": "^4.0",
         "friendsofphp/php-cs-fixer": "^2.16",
+        "hautelook/alice-bundle": "^2.7",
+        "spatie/phpunit-snapshot-assertions": "^4.0",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",

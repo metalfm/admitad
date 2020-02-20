@@ -40,7 +40,7 @@ class ShortUriController extends AbstractController
     }
 
     /**
-     * @Route("/", methods={"POST"})
+     * @Route("/", methods={"GET"})
      *
      * @param Shortener       $shortener
      * @param Request         $request
@@ -65,7 +65,7 @@ class ShortUriController extends AbstractController
 
             return JsonResponse::create([
                 'short_uri' => Uri\resolve($request->getSchemeAndHttpHost(), $shortUri),
-                'origin_uri' => $link->getUri(),
+                'origin_uri' => \urldecode($link->getUri()),
                 'expired_at' => $link->getExpireAt(),
             ]);
         } catch (ValidationException | InvalidUriException $e) {

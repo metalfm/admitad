@@ -66,12 +66,7 @@ class Shortener
     public function restoreLink(string $path): Link
     {
         $id = $this->alphabet->decode($path);
-        $link = $this->em->getRepository(Link::class)->findActiveById($id);
 
-        if (null === $link) {
-            throw new \Exception(\sprintf('Link "%s" in path "%s" not found', $id, $path));
-        }
-
-        return $link;
+        return $this->em->getRepository(Link::class)->findActiveById($id);
     }
 }

@@ -14,6 +14,11 @@ class ValidationException extends \Exception
         $this->violations = $violations;
     }
 
+    public function getViolations(): ConstraintViolationListInterface
+    {
+        return $this->violations;
+    }
+
     public function __toString()
     {
         return (string)$this->violations;

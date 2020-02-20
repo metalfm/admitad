@@ -1,0 +1,8 @@
+App\Entity\Link:
+    ya_link:
+        uri: http://ya.ru/
+        expireAt: <(new DateTimeImmutable('2025-01-01'))>
+
+    expired_link:
+        uri: http://expired-link.ru/
+        expireAt: <(new DateTimeImmutable('2019-01-01'))>
