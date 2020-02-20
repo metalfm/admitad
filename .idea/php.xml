@@ -191,4 +191,9 @@
     </phpInfoCache>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <phpunit_by_interpreter interpreter_id="cd6295f0-79af-4caa-8bf9-c1fae4e8187d" load_method="PHPUNIT_PHAR" configuration_file_path="/var/www/html/phpunit.xml" custom_loader_path="" phpunit_phar_path="bin/phpunit" use_configuration_file="true" />
+    </phpunit_settings>
+  </component>
 </project>
