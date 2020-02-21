@@ -40,7 +40,7 @@ class ShortUriController extends AbstractController
     }
 
     /**
-     * @Route("/", methods={"GET"})
+     * @Route("/", methods={"POST"})
      *
      * @param Shortener       $shortener
      * @param Request         $request
@@ -53,8 +53,8 @@ class ShortUriController extends AbstractController
     public function shortify(Shortener $shortener, Request $request, LoggerInterface $logger): Response
     {
         $link = (new Link())
-            ->setUri($request->query->get('uri', ''))
-            ->setExpireAt(new \DateTimeImmutable($request->query->get('expire_at', '+2 days')));
+            ->setUri($request->request->get('uri', ''))
+            ->setExpireAt(new \DateTimeImmutable($request->request->get('expire_at', '+2 days')));
 
         try {
             /**

@@ -1,0 +1,1 @@
+{"short_uri":"http:\/\/localhost\/b","origin_uri":"http:\/\/ya.ru\/","expired_at":{"date":"2025-01-01 23:23:21.000000","timezone_type":3,"timezone":"Europe\/Moscow"}}

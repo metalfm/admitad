@@ -5,7 +5,6 @@ namespace App\Tests\Shortener;
 use App\Entity\Link;
 use App\Shortener\Shortener;
 use App\Shortener\ValidationException;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -14,13 +13,11 @@ class ShortenerTest extends KernelTestCase
 {
     use MatchesSnapshots;
 
-    private ?EntityManagerInterface $em;
     private Shortener $shortener;
 
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->em = self::$container->get(EntityManagerInterface::class);
         $this->shortener = self::$container->get(Shortener::class);
     }
 
@@ -74,9 +71,9 @@ class ShortenerTest extends KernelTestCase
     public function testNewLink(): void
     {
         $link = (new Link())->setUri('http://new-link.ru/')->setExpireAt(new \DateTimeImmutable('+1 day'));
-        /** @var string $short */
+        /* @var string $short */
         /** @var Link $link */
-        [$short, $link] = $this->shortener->shortifyLink($link);
+        [, $link] = $this->shortener->shortifyLink($link);
 
         $this->assertGreaterThan(2, $link->getId());
     }
@@ -97,13 +94,5 @@ class ShortenerTest extends KernelTestCase
     {
         $this->expectException(NoResultException::class);
         $this->shortener->restoreLink('c');
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        $this->em->close();
-        $this->em = null;
     }
 }
