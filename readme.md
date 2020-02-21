@@ -48,8 +48,13 @@ GROUP BY year
 ORDER BY year;
 ```
 
+## Сокращатель ссылок
+В основе лежит [Bijective algorithm function](https://en.wikipedia.org/wiki/Bijection)
+Не успеваю сделать сохранение статистики переходов, но там всё тривиально)
+Веб морду тоже не успеваю прикрутить, но полностью готово api, http тоже в некотором роде интерфейс)
 
-## Install, build and run
+
+### Install, build and run — OSx only
 - `cp .env.dist .env`
 - `brew install havoc-io/mutagen/mutagen`
 - add alias to ~/.bash_profile
@@ -62,4 +67,15 @@ alias dc-exterminatus='docker stop $(docker ps -a -q) > /dev/null 2>&1; docker r
 - install [docker](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
 - `make build`
 - `make start`
-- `make stop`
+- `dc-dev exec php bin/console doctrine:migrations:migrate` накатить миграции
+- `make test`
+- `make stop` остановить контейнеры
+
+
+### Как проверить?
+Выполнить всё что описано выше кроме `make stop`
+Открыть в корне файл `exmaple.http`, там лежат примеры http запросов
+
+
+### Тесты
+`make test` осторожно, данная команда удаляет все данные из базы и заполняет их фикстурами

@@ -1,0 +1,32 @@
+
+
+### Тест с дефолтным expired
+POST http://localhost/?XDEBUG_SESSION_START=1
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="uri"
+
+http://ad.ru/simple-path?query1=value1
+--WebAppBoundary--
+
+###
+
+
+### Тест с expired
+POST http://localhost/?XDEBUG_SESSION_START=1
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="uri"
+
+http://ad.ru/simple-path?query1=value1
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="expire_at"
+
+2025-01-01 23:54:21
+--WebAppBoundary--
+
+###

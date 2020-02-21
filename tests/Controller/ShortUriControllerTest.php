@@ -44,9 +44,15 @@ class ShortUriControllerTest extends WebTestCase
         $this->assertEquals('http://ya.ru/', $this->client->getResponse()->headers->get('location'));
     }
 
-    public function testFailedRestore(): void
+    public function testNotExistLinkRestore(): void
     {
         $this->client->request('GET', '/abc');
+        $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testExpiredLinkRestore(): void
+    {
+        $this->client->request('GET', '/c');
         $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
     }
 
